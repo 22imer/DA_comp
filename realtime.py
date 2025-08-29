@@ -19,13 +19,25 @@ client = FiinSession(
 
 # Events.start()
 
-data = client.Fetch_Trading_Data(
-    realtime=False,
-    tickers=["HPG"],
-    fields=["open", "high", "low", "close", "volume"],
-    adjusted=True,
-    by="1d",
-    from_date="2025-07-01"
-).get_data()
+# data = client.Fetch_Trading_Data(
+#     realtime=False,
+#     tickers=["HPG"],
+#     fields=["open", "high", "low", "close", "volume"],
+#     adjusted=True,
+#     by="1d",
+#     from_date="2025-07-01"
+# ).get_data()
+# print(data)
 
-print(data)
+tickers = ['HPG']
+
+fs_dict = client.FundamentalAnalysis().get_financeStatement(
+    tickers=tickers,
+    statement="balancesheet",
+    years=[2024],
+    quarters=[4],
+    audited=True,
+    type="consolidated"
+)
+
+print(json.dumps(fs_dict, indent=4))
