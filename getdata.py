@@ -45,8 +45,8 @@ all_tickers = list(set(filter(lambda item: len(item) <= 3, tickers_hose + ticker
     # df = pd.DataFrame(data)
 
     # df.to_csv(f"csv/data_{i}_1d.csv", index=False)
-
-for i in all_tickers:
+cnt = 0
+for i in VN_30:
     event = client.Fetch_Trading_Data(
         realtime=False,
         tickers=[i],
@@ -58,5 +58,9 @@ for i in all_tickers:
     )
     data = event.get_data()
     df = pd.DataFrame(data)
+    if df.volume.rolling(20).fillna(200000).min(20000) >= 20000:
+        cnt += 1
+        print(f"Ticker: {i}, Min Volume: {df.volume.min()}")
+        # df.to_csv(f"csv/data_{i}_1d.csv", index=False)
 
-    df.to_csv(f"csv/data_{i}_1d.csv", index=False)
+print(f"Total tickers with volume >= 200000: {cnt}")
