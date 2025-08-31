@@ -17,19 +17,19 @@ client = FiinSession(
 VN_30 = ['STB', 'VIC', 'DGC', 'SAB', 'ACB', 'BCM', 'MSN', 'CTG', 'GVR', 'MWG', 'VIB', 'VNM', 'HPG', 'VPB', 'VCB', 'LPB', 'TPB', 'MBB', 'HDB', 'FPT', 'VRE', 'TCB', 'BID', 'VHM', 'SHB', 'VJC', 'SSB', 'GAS', 'PLX', 'SSI']
 tickers = ["ACB","BID","VCB"]
 # for tickers in wh:
-# for i in VN_30:
-#     fs_dict = client.FundamentalAnalysis().get_ratios(
-#         tickers=[i],
-#         TimeFilter="Quarterly",
-#         LatestYear=[2025],
-#         NumberOfPeriod=14,
-#     # Consolidated=True,
-#     Fields=["ROA","ROE", "EBITMargin", "ROIC","NetRevenueGrowthYoY"]
-#     )
-#     # print(i)
-#     # print(f'Ratios for {i}:')
-#     df = pd.DataFrame(fs_dict)
-#     df.to_csv(f"csv/ratio_{i}.csv", index=False)
+for i in VN_30:
+    fs_dict = client.FundamentalAnalysis().get_ratios(
+        tickers=[i],
+        TimeFilter="Quarterly",
+        LatestYear=[2025],
+        NumberOfPeriod=14,
+    # Consolidated=True,
+    Fields=["ROA","ROE", "EBITMargin", "ROIC","NetRevenueGrowthYoY"]
+    )
+    # print(i)
+    # print(f'Ratios for {i}:')
+    df = pd.DataFrame(fs_dict,index=[i])
+    df.to_csv(f"csv/ratio_{i}.csv", index=False)
 
 
 # # Keo het ve 1 file ratios
