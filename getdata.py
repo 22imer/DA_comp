@@ -43,13 +43,13 @@ for i in VN_30:
     )
     data = event.get_data()
     df = pd.DataFrame(data)
-    print(i)
-    # print(f'Ratios for {i}:')
-    # df = pd.DataFrame(fs_dict)
-    df.set_index(['ticker'], inplace=True)
-    # print(df)
+    # print(i)
+    df['ticker'] = i
+    # df.set_index(['ticker'], inplace=True)
+    df['year'] = pd.to_datetime(df['timestamp']).dt.year
+    df['quarter'] = pd.to_datetime(df['timestamp']).dt.quarter
     fi = client.FiinIndicator()
-    # print(dir(fi))
+
     df['ema20'] =+ fi.ema(df['close'], window=20)
     df['macd_signal'] = fi.macd_signal(df['close'], window_fast=12, window_slow=26, window_sign=9)
     df['macd'] = fi.macd(df['close'], window_fast=12, window_slow=26)
@@ -76,4 +76,4 @@ for i in VN_30:
     # print(df)
     df.to_csv(f"csv/data_{i}_1d.csv", index=False)
 
-print(f"Total tickers with volume >= 200000: {cnt}")
+# print(f"Total tickers with volume >= 200000: {cnt}")

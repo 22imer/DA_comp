@@ -41,15 +41,11 @@ for i in VN_30:
         Consolidated=True,
         Fields=["ROA","ROE", "EBITMargin", "ROIC","NetRevenueGrowthYoY"]
     )
-    print(i)
-    # print(f'Ratios for {i}:')
+    print(f'Ratios for {i}:')
     df = pd.DataFrame(fs_dict)
     df.set_index(['ticker'], inplace=True)
-    print(df)
-    fi = client.FiinIndicator()
-    print(dir(fi))
-    df['ema5'] = fi.ema(df['close'], window=5)
-    print(df)
-    # df.to_csv(f"csv/ratio_{i}.csv")
+
+    
+    df.to_csv(f"csv/ratio_{i}.csv")
 
 
